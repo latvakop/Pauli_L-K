@@ -1,0 +1,1 @@
+Projektin koodista suurin osa on omaa. Kurssin koodista on kopioitu vain pelialueen koon määrittävät vakiot ja pelialueen alustaminen. Tämä on kommentoitu koodiin. 

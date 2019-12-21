@@ -1,0 +1,51 @@
+Ohjeet suomeksi:
+Hanoin torni
+
+Teknistä: Ohjelman pystyy ajamaan Qt creatorilla, ehkä myös Visual Studio Codella mutta jälkimmäistä en ole testannut.
+Ota shadow build pois käytöstä project välilehdestä Qt:ssa. Kun tämä valinta oli päällä käyttöliittymä näytti aivan vääränlaiselta linux etätyöpöydällä verrattuna windowsiin.
+
+Säännöt: Pelissä yritetään liikuttaa kiekot aloitustornista johonkin muuhun torniin, isompaa kiekkoa ei voi laittaa pienemmän päälle.
+
+Kiekkojen liikuttelu:
+Pelissä on kolme tornia joiden välillä kiekkoja voi liikutella, tornien nimet ovat A, B ja C ja nämä nimet lukevat pelissä tornien yläpuolella. Pelissä on kuusi painonappia, 
+joilla kiekkoja voi liikutella. Painonappi siirtää kiekon ensimmäisenä mainitulta tornilta nuolen osoittamaan torniin. Esim. painonappi "A->B" siirtää kiekon tornista A 
+torniin B jos se on mahdollista sääntöjen mukaan. Jos käyttäjä yrittää laitonta siirtoa (siirtää isompaa kiekkoa pienemmän kiekon päälle tai siirtää kiekkoa tornista, 
+jossa ei ole mitään) tätä siirtoa vastaava painonappi on pois päältä (disabled) jo ennen kuin siirtoa voidaan tehdä. Siten peliä ei pitäisi pystyä kaatamaan painonappeja 
+hakkaamalla. Vastaavat kiekon siirrot käyttäjä voi tehdä myös näppäimistön näppäimillä. Jos käyttäjä syöttää näppäinyhdistelmän, jota vastaava siirto olisi sääntöjen 
+vastainen, mitään ei tapahdu. Painonappeja vastaavat näppäinyhdistelmät:
+nappi: "A->B" näppäinkomento: Paina ensin näppäintä A ja sitten näppäintä B, tai pidä näppäintä A pohjassa ja paina sitten näppäintä B siirto: Siirtää kiekon tornilta A torniin B, jos se on sääntöjen mukaista
+nappi: "A->C" näppäinkomento: Paina ensin näppäintä A ja sitten näppäintä C, tai pidä näppäintä A pohjassa ja paina sitten näppäintä C siirto: Siirtää kiekon tornilta A torniin C, jos se on sääntöjen mukaista
+nappi: "B->A" näppäinkomento: Paina ensin näppäintä B ja sitten näppäintä A, tai pidä näppäintä B pohjassa ja paina sitten näppäintä A siirto: Siirtää kiekon tornilta B torniin A, jos se on sääntöjen mukaista
+nappi: "B->C" näppäinkomento: Paina ensin näppäintä B ja sitten näppäintä C, tai pidä näppäintä B pohjassa ja paina sitten näppäintä C siirto: Siirtää kiekon tornilta B torniin C, jos se on sääntöjen mukaista
+nappi: "C->A" näppäinkomento: Paina ensin näppäintä C ja sitten näppäintä A, tai pidä näppäintä C pohjassa ja paina sitten näppäintä A siirto: Siirtää kiekon tornilta C torniin A, jos se on sääntöjen mukaista
+nappi: "C->B" näppäinkomento: Paina ensin näppäintä C ja sitten näppäintä B, tai pidä näppäintä C pohjassa ja paina sitten näppäintä B siirto: Siirtää kiekon tornilta C torniin B, jos se on sääntöjen mukaista
+
+Uusi peli:
+Uuden pelin voi aloittaa painamalla painonappia, jossa lukee "New game". Ennen tämän napin painamista käyttäjä voi kuitenkin tehdä kaksi valintaa: 
+"Enter the number of discs:"-syötekenttään voi syöttää aloitustorniin haluamiensa kiekkojen määrän kokonaislukuna väliltä 1-15. Ohjelma toimisi tätäkin isommilla 
+kokonaisluvuilla, mutta ne eivät mahtuisi enää pelikentälle ja tälläisen pelin ratkaisemiseen menisi yli 32 000 siirtoa, joten päätin rajoittaa kiekot viiteentoista.
+Syötekenttään "Enter the starting tower:" käyttäjä voi syöttää haluamansa aloitustornin nimen. Vaihtoehtoja on kolme: 'A','B' ja 'C' 
+(tai ei capslockilla a,b ja c). Peliä ei aloiteta ennen kuin käyttäjä syöttää järkevät syötteet molempiin syötekenttiin tai ei mitään, jolloin peli aloitetaan
+ennalta määritellyillä standardi asetuksilla (kaksi vakiota koodissa). 
+
+Pelin lopetus: 
+Jos käyttäjä voittaa pelin eli siirtää kaikki kiekot johonkin toiseen torniin (oikeaan järjestykseen), kuin aloitustorni, tästä ilmoitetaan ponnahdusikkunalla, jossa myös kysytään haluaako
+käyttäjä pelata uuden pelin vai lopettaa. Muussa tapauksessa pelin voi lopettaa painamalla ruksista oikeasta yläkulmasta tai "Close game"-napista.
+
+Lisäominaisuudet: 
+- Jokaisella tapilla on oma värinsä, joka on määritelty vakiona koodissa. Aina kun kiekko siirretään sen väri muuttuu vastaavan tapin väriseksi.
+- Pelin oikeassa reunassa on kello/ajastin, joka näyttää ajan joka on kulunut siitä hetkestä, kun käyttäjä painoi "New game"-nappia tähän 
+hetkeen, tai siihen hetkeen kun käyttäjä voitti pelin (tällöin kello pysähtyy).
+- Pelissä on kaksi tapaa liikutella kiekkoja. Toteutin aluksi liikuttelun painonappien avulla, mutta myöhemmin toteutin lisäominaisuutena liikuttelun
+näppäinkomentojen avulla joiden toiminnallisuuden selitinkin jo aiemmin tässä dokumentissa. Lisähuomiona, että jos joskus peli ei liikuta kiekkoja vaikka painat näppäintä A ja sitten B tämä johtuu siitä,
+että olet ennemmin vahingossa painanut esimerkiksi näppäintä B ja nyt peli yrittääkin liikutella kiekkoa B tornista A torniin mikä ei ole laillista koska mitään ei tapahdu. Tähän ratkaisuna on painaa pari kertaa 
+jotain ihan muuta näppäintä vaikkapa Q:ta ja sen jälkeen homman pitäisi toimia. Tämä ei sinällään ole bugi vaan "ominaisuus" johtuu siitä miten toteutin näppäinkomennot.
+- Animointi ominaisuus. Pelissä on itsensä ratkaiseva animointiominaisuus joka käynnistyy "Solve"-nappia painamalla. Solve nappia voi painaa vain kun peli on aloitustilannetta vastaavassa
+tilanteessa eli kaikki kiekot ovat järjestyksessä aloitustornissa, muutoin "Solve"-nappi on pois päältä. "Stop solving"-nappia painamalla animointi ominaisuus pysähtyy. Animointi ominaisuuden nopeutta
+voi säädellä muuttamalla "mainwindow.hh"-tiedoston vakion ANIMATION_TIME arvoa.
+- Pelin päätyttyä peliasetelman voi palauttaa alkutilanteeseen, jolloin käyttäjä voi aloittaa uuden pelin käynnistämättä ohjelmaa uudelleen. Tämä ominaisuus toimii vaikken edes tiennyt ohjelmaa
+tehdessä että tämä on lisäominaisuus. Jos pelin voitettuaan käyttäjä vastaa ponnahdusikkunaan että haluaa pelata uudestaan, peli käynnistyy uudestaan oletusarvoilla. Tämän jälkeen
+tietysti näitä arvoja voi vaihtaa ja aloittaa uuden pelin new game nappulalla. 
+
+
+Nimi: Pauli Latva-Kokko
