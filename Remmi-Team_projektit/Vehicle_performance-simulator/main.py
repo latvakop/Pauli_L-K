@@ -1,4 +1,5 @@
-# Made by: Jesper Granat and Pauli Latva-Kokko
+# Made by Remmi-Team
+# Refactoring to Python: Jesper Granat and Pauli Latva-Kokko
 
 import math
 

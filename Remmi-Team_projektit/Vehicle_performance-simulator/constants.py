@@ -1,4 +1,5 @@
-# Made by: Pauli Latva-Kokko and Jesper Granat
+# Made by: Remmi-Team
+# Refactoring to Python: Pauli Latva-Kokko and Jesper Granat
 
 # Simulation parameters
 SAMPLE_TIME = 0.01
