@@ -1,0 +1,2 @@
+Tämä on ohjelmointi 2:sen viimeinen projekti, jossa tarkoituksena oli tehdä Hanoin torni-peli graafisella käyttöliittymällä varustetttuna. Säännöt löytyvät instructions.txt tiedostosta, 
+ohjelman ajaminen onnistuu ainakin Qt creatorilla. 
