@@ -197,6 +197,7 @@ def calculate_result(init_speed, end_speed):
     print("Fuel used:", fuel_used_total, "km/l:", distance / fuel_used_total, "Init speed:", init_speed, "End speed:",
           end_speed)
     # Plotting some data
+
     plot = Plotter(time_data, "Time(s)")
     plot.new_plot(height_data, "Height(m)", "Height graph")
     plot.new_plot(speed_data_kmh, "Speed(km/h)", "Speed graph")
