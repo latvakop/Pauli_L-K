@@ -106,13 +106,15 @@ private slots:
     void on_stopSolvingPushButton_clicked();
 
 private:
-    // *** Kurssin koodia
+
+    // *** Course code
     // Graphics scene coordinates in pixels.
     const int BORDER_UP = 0;
     const int BORDER_DOWN = 260;
     const int BORDER_LEFT = 0;
     const int BORDER_RIGHT = 680;
-    // Kurssin koodi päättyy ***
+    // Course code ends ***
+
     // The height of every disc in pixels.
     const int RECTANGLE_HEIGHT = 10;
     // The width of the smallest disc in pixels.

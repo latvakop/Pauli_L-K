@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui_->setupUi(this);
 
-    // *** Kurssin koodia
+    // *** Course code
     // We need a graphics scene in which to draw the hanoi's towers
     scene_ = new QGraphicsScene(this);
 
@@ -41,7 +41,7 @@ MainWindow::MainWindow(QWidget *parent)
     // The width of the scene_ is BORDER_RIGHT decreased by 1 and
     // the height of it is BORDER_DOWN decreased by 1,
     scene_->setSceneRect(0, 0, BORDER_RIGHT - 1, BORDER_DOWN - 1);
-    // Kurssin koodi päättyy ***
+    // Course code ends ***
 
     // Set window title
     MainWindow::setWindowTitle("Tower of Hanoi");
