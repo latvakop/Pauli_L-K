@@ -3,8 +3,10 @@
 
 import matplotlib.pyplot as plt
 
-# A class for plotting the data calculated in the program.
 class Plotter:
+    """
+    A class for plotting the data calculated in the program.
+    """
     def __init__(self, x_data, x_label):
         """
         Constructor for the plotting
@@ -15,7 +17,6 @@ class Plotter:
         x_label: string
             Name of the x-label
         """
-        self.figure_number_ = 1
         self.x_data_ = x_data
         self.x_label_ = x_label
 
@@ -36,8 +37,7 @@ class Plotter:
         -------
         """
         if new_figure == True:
-            plt.figure(self.figure_number_)
-            self.figure_number_ += 1
+            plt.figure()
         plt.plot(self.x_data_, y_data)
         plt.ylabel(y_label_)
         plt.xlabel(self.x_label_)

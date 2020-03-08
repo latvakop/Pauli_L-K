@@ -1,12 +1,17 @@
 # Made by: Remmi-team
 # Refactoring to python: Pauli Latva-Kokko
 
-import math
-
 # Object for calculating the engine power.
-class Power:
+import math
+import numpy as np
 
-    def __init__(self, torque_input, efficiency_input, drive_ratio_input):
+
+class Power:
+    """
+    Object for calculating the engine power.
+    """
+
+    def __init__(self, torqueInput, effiencyInput, driveRatioInput):
         """
         Initializes the power/engine object.
         Parameters
@@ -18,19 +23,22 @@ class Power:
         driveRatioInput: float
             Drive ratio of the engine
         """
-        self.torque = torque_input
-        self.efficiency = efficiency_input
-        self.drive_ratio = drive_ratio_input
-        
-        
-    def getPower(self,tyre_object,vehicle_speed_input):
+        self.engine_efficiency_data = np.loadtxt('../engine_efficiency.csv', delimiter=';', skiprows=1)
+        self.efficiency_data = self.engine_efficiency_data[:, 1]
+        self.engine_rpm_data = self.engine_efficiency_data[:, 0]
+        self.torque = torqueInput
+        self.effiency = effiencyInput
+        self.driveRatio = driveRatioInput
+        self.rpm = 0
+
+    def getPower(self, tyreObject, vehicleSpeedInput):
         """
         Calculates the current engine power.
         Parameters
         ----------
-        tyre_object: Tyre
+        tyreObject: Tyre
             The backwheel of the vehicle.
-        vehicle_speed_input: float
+        vehicleSpeedInput: float
             current speed of the vehicle.
 
         Returns
@@ -38,13 +46,21 @@ class Power:
         power: float
             current power of the engine.
         """
-        # Calculates rpm from vehicle speed and outputs power.        
-        if vehicle_speed_input < 2: # CLUTCH SLIPS, ENGINE RPM IS IN STEADY STATE
-            engine_rpm = 2000
-        else:   # CLUTCH DOES NOT SLIP, ENGINE RPM DEPENDS ON VEHICLE SPEED
-            engine_rpm = vehicle_speed_input / (tyre_object.diam*math.pi)*(1/self.drive_ratio)*60
-            #engineRpm = vehicle_speed_input/(0.48*math.pi)*(1/self.drive_ratio)*60
-        power = engine_rpm*self.torque/9.5488
+
+        # Calculates rpm from vehicle speed and outputs power.
+        if vehicleSpeedInput < 2:  # CLUTCH SLIPS, ENGINE RPM IS IN STEADY STATE
+            self.rpm = 2000
+        else:  # CLUTCH DOES NOT SLIP, ENGINE RPM DEPENDS ON VEHICLE SPEED
+            self.rpm = vehicleSpeedInput / (tyreObject.diam * math.pi) * (1 / self.driveRatio) * 60
+            # engineRpm = vehicleSpeedInput/(0.48*math.pi)*(1/self.driveRatio)*60
+        power = self.rpm * self.torque / 9.5488
+
+        # Calculating the engine efficiency based on the current rpm, using pre-measured csv-data.
+        for i in range(self.engine_rpm_data.size - 2):
+            if self.engine_rpm_data[i] < self.rpm and self.engine_rpm_data[i + 1] > self.rpm:
+                distance = self.engine_rpm_data[i + 1] - self.engine_rpm_data[i]
+                slope = self.engine_efficiency_data[i + 1] / distance
+                self.efficiency = slope * (self.rpm - self.engine_rpm_data[i]) + self.engine_efficiency_data[i]
+
         return power
-   
 
